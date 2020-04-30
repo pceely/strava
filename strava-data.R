@@ -27,14 +27,18 @@ strava_summary_tmp <- strava_summary %>%
   mutate(rate_mpkm = time_s /distance_m * 1000 / 60) %>%
   mutate(date = dmy_hms(Activity.Date)) %>%
   mutate(year = year(date)) %>%
-  select(-Activity.Date) %>%
-  filter(rate_mpkm < 7)
+  select(-Activity.Date)
+#clean up data
+strava_summary_tmp <- strava_summary_tmp %>%
+  filter(rate_mpkm < 7) %>%
+  filter(distance_km > 1)
 
-
+strava_summary_long  <- strava_summary_tmp %>% filter(distance_km > 11)
+strava_summary_fast  <- strava_summary_tmp %>% filter(rate_mpkm <4.5)
 
 #graph
 strava_summary_tmp %>%
-  ggplot(aes(date, rate_mpkm)) +
+  ggplot(aes(date, rate_mpkm, color = distance_km)) +
   geom_smooth(method = "loess", span = 0.3) +
   geom_hline(yintercept = 5) +
   geom_point()
