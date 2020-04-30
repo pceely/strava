@@ -47,24 +47,19 @@ strava_summary_tmp %>%
 
 #deal with numbers and dates
 
-date <- dmy_hms(strava_sum_tmp_date)
-strava_summary_tmp <- strava_summary_tmp %>%
-  mutate(year = year(dmy_hms(date)))
+# date <- dmy_hms(strava_sum_tmp_date)
+# strava_summary_tmp <- strava_summary_tmp %>%
+#   mutate(year = year(dmy_hms(date)))
 
 
-strava_sum_tmp <- strava_summary_tmp[1090,]
-strava_sum_tmp_date <- strava_sum_tmp$date
-
-strava_sum_tmp_d2 <- dmy_hms(strava_sum_tmp_date)
-strava_sum_tmp_d3 <- ymd(dmy_hms(strava_sum_tmp_date))
-
-
+# strava_sum_tmp <- strava_summary_tmp[1090,]
+# strava_sum_tmp_date <- strava_sum_tmp$date
 
 
 #tasks:
 #remove unused columns and rename - 
-calculate run rate - mins per km
-sort out the date and time
-create a year column
-convert to km and mins
+# calculate run rate - mins per km
+# sort out the date and time
+# create a year column
+# convert to km and mins
 
