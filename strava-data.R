@@ -20,20 +20,20 @@ library(lubridate)
 #          time_s = Moving.Time, distance_m = Distance.1)
 strava_summary_tmp <- strava_summary %>%
   mutate(rate_mpkm = time_s /distance_m * 1000 / 60) %>%
-  mutate(date = dmy_hms(Activity.Date)) %>%
-  mutate(year = year(date)) %>%
-  select(-Activity.Date)
+  mutate(date_time = dmy_hms(raw_date)) %>%
+  mutate(year = year(date_time)) %>%
+  select(-raw_date)
+
+
 #clean up data
 strava_summary_tmp <- strava_summary_tmp %>%
   filter(rate_mpkm < 7) %>%
   filter(distance_km > 1)
 
-strava_summary_long  <- strava_summary_tmp %>% filter(distance_km > 11)
-strava_summary_fast  <- strava_summary_tmp %>% filter(rate_mpkm <4.5)
 
 #graph
 strava_summary_tmp %>%
-  ggplot(aes(date, rate_mpkm, color = distance_km)) +
+  ggplot(aes(date_time, rate_mpkm, color = distance_km)) +
   geom_smooth(method = "loess", span = 0.3) +
   geom_hline(yintercept = 5) +
   geom_point()
@@ -45,15 +45,14 @@ strava_summary_tmp %>%
 
 
 #deal with numbers and dates
-
+# strava_sum_tmp_date <- strava_summary[1,]$`Activity Date`
 # date <- dmy_hms(strava_sum_tmp_date)
-# strava_summary_tmp <- strava_summary_tmp %>%
-#   mutate(year = year(dmy_hms(date)))
-
 
 # strava_sum_tmp <- strava_summary_tmp[1090,]
 # strava_sum_tmp_date <- strava_sum_tmp$date
 
+# strava_summary_long  <- strava_summary_tmp %>% filter(distance_km > 11)
+# strava_summary_fast  <- strava_summary_tmp %>% filter(rate_mpkm <4.5)
 
 #tasks:
 #remove unused columns and rename - 
