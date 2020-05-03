@@ -37,10 +37,14 @@ strava_summary_tmp %>%
   geom_smooth(method = "loess", span = 0.3) +
   geom_hline(yintercept = 5) +
   geom_point()
+ggsave("figs/strava_ratetime.png")
 
 strava_summary_tmp %>%
   ggplot(aes(distance_km, rate_mpkm, color = year)) +
   geom_point()
+ggsave("figs/strava_ratedistance.png")
+
+#save the file
 
 
 
